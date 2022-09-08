@@ -1,0 +1,30 @@
+.title-container {
+  display: flex;
+  /*justify-content: center;*/
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+  /*width: 100px;*/
+}
+
+form {
+  padding: 0 !important;
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+}
+
+h3 {
+  margin: 0;
+}
+
+.image-container {
+  width: 30px;
+}
+
+
+button {
+  margin-top: 0.5rem;
+}

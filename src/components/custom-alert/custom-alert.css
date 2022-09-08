@@ -1,0 +1,7 @@
+.alert-container {
+  position: absolute;
+  /*right: 0;*/
+  top: calc(100vh - 6rem);
+  /*bottom: 0;*/
+  /*right: 0;*/
+}
