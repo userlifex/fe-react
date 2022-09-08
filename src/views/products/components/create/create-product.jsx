@@ -18,7 +18,7 @@ export const CreateProduct = () => {
     console.log({ image });
   }, [image]);
 
-  const { addProduct } = useProductsContext();
+  const { createProduct } = useProductsContext();
 
   const resetValues = () => {
     setName("");
@@ -29,33 +29,20 @@ export const CreateProduct = () => {
     setIsLoadingCreateProduct(false);
   };
 
-  const handleUpload = async () => {
-    const formData = new FormData();
-    const selectedFile = image;
-    formData.append("file", selectedFile, selectedFile.name);
-    const url = `http://localhost:3000/${selectedFile.name}`;
-    const response = await axios.post(
-      "http://localhost:3000/products/image",
-      formData
-    );
-
-    return url;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setIsLoadingCreateProduct(true);
-    const url = await handleUpload();
-    const product = await productsService.createProduct({
-      name,
-      description,
-      price,
-      stock,
-      imgUrl: url,
-    });
-
-    await addProduct(product.data);
+    await createProduct(
+      {
+        name,
+        description,
+        price,
+        stock,
+      },
+      image
+    );
+    setIsLoadingCreateProduct(false);
     resetValues();
   };
 
@@ -117,46 +104,19 @@ export const CreateProduct = () => {
           </Col>
         </Row>
         <Row>
-          {
-            //<Col>
-            //<Form.Group className="mb-3" controlId="formBasicEmail">
-            //<Form.Label>Link de imagen</Form.Label>
-            //<Form.Control
-            //type="input"
-            //placeholder="Link de la imagen"
-            //required
-            //value={imgUrl}
-            //onChange={(e) => setImgUrl(e.target.value)}
-            ///>
-            //</Form.Group>
-            //</Col>
-          }
           <Col>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Link de imagen</Form.Label>
               <Form.Control
                 type="file"
-                placeholder="Link de la imagen"
+                placeholder="Imagen"
                 required
                 onChange={(e) => {
-                  console.log("uploadImage");
                   setImage(e.target.files[0]);
                 }}
               />
             </Form.Group>
           </Col>
-          {
-            //<Col>
-            //<Button
-            //onClick={(e) => {
-            //e.preventDefault();
-            //handleUpload();
-            //}}
-            //>
-            //upload
-            //</Button>
-            //</Col>
-          }
         </Row>
         <div className="d-grid gap-2">
           <Button

@@ -29,7 +29,7 @@ export const ItemProduct = ({ product }) => {
           <span>Descripcion:</span> {description}
         </p>
         <div className="edit-buttons-group">
-          <Button variant="success" size="sm">
+          <Button style={{ display: "none" }} variant="success" size="sm">
             Editar
           </Button>
           <Button variant="danger" size="sm" onClick={() => deleteProdut(uuid)}>

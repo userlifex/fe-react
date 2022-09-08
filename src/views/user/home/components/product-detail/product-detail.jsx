@@ -13,7 +13,6 @@ import { productsService } from "../../../../../services/products";
 export const ProductDetail = () => {
   const { product, isLoadingProduct } = useProduct();
   const { addToCart } = useCartContext();
-  //const { updateStock } = useProductsContext();
   const { updateAlert } = useAlertsContext();
   const navigate = useNavigate();
 

@@ -4,16 +4,16 @@ import { constants } from "./constants";
 
 const createProduct = async (productData) => {
   try {
-    console.log("creating...");
-    console.log(productData);
-    const { price, stock } = productData;
+    const { price, stock, imageName, ...rest } = productData;
+
     const { data } = await axios.post(`${constants.apiUrl}/products`, {
-      ...productData,
+      ...rest,
       stock: +stock,
       price: +price,
+      imgUrl: `${constants.apiUrl}/${imageName}`,
     });
 
-    return data;
+    return data.data;
   } catch (err) {
     console.error(err);
   }
@@ -47,9 +47,21 @@ const getProduct = async (uuid) => {
   }
 };
 
+const uploadImage = async (image) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", image, image.name);
+
+    await axios.post("http://localhost:3000/products/image", formData);
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const productsService = {
   createProduct,
   getAllProducts,
   deleteProduct,
   getProduct,
+  uploadImage,
 };

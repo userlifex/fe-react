@@ -13,6 +13,17 @@ const ProductsContextProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
+  const createProduct = async (product, image) => {
+    await productsService.uploadImage(image);
+
+    const addedProduct = await productsService.createProduct({
+      ...product,
+      imageName: image.name,
+    });
+
+    addProduct(addedProduct);
+  };
+
   const fetchProducts = () => {
     setIsLoadingProducts(true);
     productsService
@@ -32,7 +43,6 @@ const ProductsContextProvider = ({ children }) => {
   };
 
   const addProduct = (product) => {
-    console.log("in context", { product });
     setProducts((value) => [product, ...value]);
   };
 
@@ -54,6 +64,7 @@ const ProductsContextProvider = ({ children }) => {
     fetchProducts,
     deleteProdut,
     updateStock,
+    createProduct,
   };
 
   return (
